@@ -3,11 +3,9 @@
 
 #### Install the required packages
 ```bash
-sudo apt install libyaml-dev
-sudo apt install luarocks
-sudo luarocks install lyaml
+make install
 ```
 #### Run the program
 ```bash
-lua fakturoplujka.lua
+lua makeFv.lua
 ```
