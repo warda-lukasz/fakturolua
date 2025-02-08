@@ -1,7 +1,8 @@
-local loader = require('loader')
-local console = require('utils.log')
+local loader = require('src.loader')
+local console = require('src.utils.log')
 
 local FM = {}
+local parameters = loader.loadYaml('config/parameters.yaml')
 
 function FM.replaceTemplateVars(template, obj, objName) 
   return template:gsub('<<' .. objName .. '(.-)>>', function(key)
@@ -32,17 +33,12 @@ function FM.copyFilesToOutputDir()
   os.execute('cp -r output/* ' .. targetDir .. '/')
 end
 
-function FM.prepareFv() 
-  local seller = loader.loadYaml('config/seller.yaml')
-  local customers = loader.loadYaml('config/customers.yaml')
-  local template = FM.getTemplate()
-  local templateWithSeller = FM.replaceTemplateVars(template, seller, 'seller')
+function FM.getSeller()
+  return parameters.seller
+end
 
-  for i, customer in pairs(customers) do
-    console.log(customer)
-  end
-
-  return templateWithSeller
+function FM.getCustomers()
+  return parameters.customers
 end
 
 return FM

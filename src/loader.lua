@@ -2,8 +2,8 @@ local lyaml = require('lyaml')
 
 local M = {}
 
-function M.loadYaml(file) 
-  local file = io.open(file, 'r')
+function M.loadYaml(fileName)
+  local file = io.open(fileName, 'r')
   
   if file then
     local content = file:read('*all')
@@ -12,6 +12,7 @@ function M.loadYaml(file)
   end
 
   print('File not found')
+
   return 
 end
 

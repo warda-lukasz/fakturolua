@@ -41,16 +41,16 @@
         \end{minipage}
         \begin{minipage}[t]{\textwidth}
             \textbf{\emph{Nabywca:}} \\
-            //customercompanyName// \\
-            //customeraddress// \\
-            //customerpostalCode//~//customercity// \\ \\
-            \nipText~//customernip//
+            <<customercompanyName>> \\
+            <<customeraddress>> \\
+            <<customerpostalCode>>~<<customercity>> \\ \\
+            \nipText~<<customernip>>
         \end{minipage}
     \end{small}
 
     \ \\ \ \\
 
-    \centerline{\textbf{\LARGE{Faktura VAT nr: //invoiceNumber//}}}
+    \centerline{\textbf{\LARGE{Faktura VAT nr: <<invoiceNumber>>}}}
 
     \ \\
 
@@ -64,9 +64,9 @@
                 & \textbf{Jm.} & \textbf{Cena netto} & \textbf{Wartość netto}
                 & \textbf{Stawka Vat} & \textbf{Kwota Vat} & \textbf{Wartość Brutto} \\
                 \hline
-                1 & //product// & 1 & szt. & //currencyNet//
-                & //currencyNet// & //vatRatePercentage//
-                & //currencyVat// & //currencyGross// \\
+                1 & <<product>> & 1 & szt. & <<currencyNet>>
+                & <<currencyNet>> & <<vatRatePercentage>>
+                & <<currencyVat>> & <<currencyGross>> \\
                 \hline
             \end{tabular}
         }\label{tab:table}
@@ -75,14 +75,14 @@
 
     \begin{small}
         \begin{minipage}[t]{.7\textwidth}
-            Razem do zapłaty: //currencyGross// \\
+            Razem do zapłaty: <<currencyGross>> \\
             \begin{scriptsize}
-                //currencySpellout//
+                <<currencySpellout>>
             \end{scriptsize}
         \end{minipage}
         \begin{minipage}[t]{\textwidth}
-            Sposób zapłaty: //payment// \\
-            Termin zapłaty: //paymentDate//
+            Sposób zapłaty: <<payment>> \\
+            Termin zapłaty: <<paymentDate>>
         \end{minipage}
     \end{small}
 
@@ -91,7 +91,7 @@
     \begin{small}
         \begin{minipage}[t]{.4\textwidth}
             \centerline{
-                \textbf{\emph{//sellerfullName//}
+                \textbf{\emph{<<sellerfullName>>}
                 }}
             \ \\
             \vspace{-4ex}
@@ -118,7 +118,7 @@
         \ \\
 
         \begin{small}
-            \small{\centerline{{MPK: //mpkCode//}}}
+            \small{\centerline{{MPK: <<mpkCode>>}}}
         \end{small}
 
 
