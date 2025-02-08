@@ -1,9 +1,22 @@
 # FAKTUROPLUJKA #
 ## This time in lua!
 
+## Prerequisites
+- Lua 5.3
+- LuaRocks
+  - inspect
+  - lyaml
+- texlive
+- texlive-lang-polish
+
+### Chceck if you have dependencies installed
+```bash
+make deps-check
+```
+
 ### Install the required packages
 ```bash
-make install
+make deps-install
 ```
 ### Run the program
 ```bash
