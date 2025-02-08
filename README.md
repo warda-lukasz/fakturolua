@@ -1,5 +1,5 @@
 # FAKTUROPLUJKA #
-## This time in lua!
+This time in lua!
 
 ## Prerequisites
 - Lua 5.3
@@ -18,7 +18,7 @@ make deps-check
 ```bash
 make deps-install
 ```
-### Run the program
+## Run the program
 ```bash
 lua makeFv.lua
 
