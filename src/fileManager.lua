@@ -1,5 +1,4 @@
 local loader = require('src.loader')
-local console = require('src.utils.log')
 
 local FM = {}
 local parameters = loader.loadYaml('config/parameters.yaml')

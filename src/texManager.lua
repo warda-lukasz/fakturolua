@@ -1,4 +1,5 @@
 local console = require('src.utils.log')
+local invoiceFactory = require('src.invoiceFactory')
 local fm = require('src.fileManager')
 local TM = {}
 
@@ -10,16 +11,16 @@ function TM.prepareFv(inactive)
   local templateWithSeller = fm.replaceTemplateVars(template, seller, 'seller')
 
   for i, customer in pairs(customers) do
+    local customerTemplate = fm.replaceTemplateVars(templateWithSeller, customer, 'customer')
     local invoices = customer.invoices
 
-    for i, invoice in pairs(invoices) do
-
-      if invoice.active or inactive == 'inactive' then
-        console.log(invoice)
-      end
-
+    for j, invoiceObj in pairs(invoices) do
+      if invoiceObj.active or inactive == 'inactive' then
+        local invoice = invoiceFactory.createInvoice(invoiceObj)
+        -- local invoice = invoiceFactory.createInvoice(invoiceObj)
+        -- local invoiceTemplate = fm.replaceTemplateVars(templateWithSeller, invoice, 'invoice')
+        end
     end
-
   end
 
   return templateWithSeller
