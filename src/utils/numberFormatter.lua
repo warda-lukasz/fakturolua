@@ -117,7 +117,7 @@ function parseThousands(whole)
   }
 end
 
-function parseHundreds(thousands)
+local function parseHundreds(thousands)
   local result = thousands.result
 
   if thousands.rest > 0 then
@@ -127,13 +127,12 @@ function parseHundreds(thousands)
   return result
 end
 
-function parseCurrencyDeclension(result, num)
+local function parseCurrencyDeclension(result, num)
   print(result)
 end
 
 function NF.currencySpellout(number)
-  local result = ""
-  local whole = math.floor(number)
+  local result = "" local whole = math.floor(number)
   local cents = math.floor((number * 100) % 100)
 
   result = parseCurrencyDeclension(
