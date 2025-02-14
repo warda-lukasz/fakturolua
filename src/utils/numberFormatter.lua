@@ -1,4 +1,3 @@
-local console = require("src.utils.log")
 local NF = {}
 
 local singles = {
@@ -90,7 +89,7 @@ local function spelloutHundreds(num)
   return w
 end
 
-function parseThousands(whole)
+local function parseThousands(whole)
   local thousands = math.floor(whole / 1000)
   local rest = whole % 1000
   local result = ''
@@ -99,12 +98,12 @@ function parseThousands(whole)
     if thousands == 1 then
       result = thousandsDeclension[1] .. " "
     else
-      howManyThousands = thousands % 10
-      howManyDozens = math.floor(thousands % 100 / 10)
+      local howManyThousands = thousands % 10
+      local howManyDozens = math.floor(thousands % 100 / 10)
       result = spelloutHundreds(thousands)
 
       if howManyThousands >= 2 and howManyThousands <= 4 and howManyDozens ~= 1 then
-        result = result .. thuosandsDeclension[2] .. " "
+        result = result .. thousandsDeclension[2] .. " "
       else
         result = result .. thousandsDeclension[3] .. " "
       end
@@ -128,51 +127,47 @@ local function parseHundreds(thousands)
 end
 
 local function parseCurrencyDeclension(result, num)
-  print(result)
-end
-
-function NF.currencySpellout(number)
-  local result = "" local whole = math.floor(number)
-  local cents = math.floor((number * 100) % 100)
-
-  result = parseCurrencyDeclension(
-    parseHundreds(parseThousands(whole)), number
-  )
-
-  -- todo and whole cents
+  if num == 1 then
+    result = result .. polishCurrencyDeclension[0]
+  elseif num % 10 >= 2 and num % 10 <= 4 and math.floor(num % 100 / 10) ~= 1 then
+    result = result .. polishCurrencyDeclension[1]
+  else
+    result = result .. polishCurrencyDeclension[2]
+  end
 
   return result
 end
 
-function NF.currencyFormat(number) end
+local function parseCentsDeclension(result, num)
+  if num > 0 then
+    result = result .. " i " .. spelloutHundreds(num)
 
-function NF.currency_spellout(liczba)
-  local calkowita = math.floor(liczba)
-  local grosze = math.floor((liczba * 100) % 100)
-  local wynik = ""
-
-  -- Dodanie "złote/złotych"
-  if calkowita == 1 then
-    wynik = wynik .. "złoty"
-  elseif calkowita % 10 >= 2 and calkowita % 10 <= 4 and math.floor(calkowita % 100 / 10) ~= 1 then
-    wynik = wynik .. "złote"
-  else
-    wynik = wynik .. "złotych"
-  end
-
-  -- Dodanie groszy
-  if grosze > 0 then
-    wynik = wynik .. " i " .. convert_hundreds(grosze)
-    if grosze == 1 then
-      wynik = wynik .. "grosz"
-    elseif grosze % 10 >= 2 and grosze % 10 <= 4 and math.floor(grosze % 100 / 10) ~= 1 then
-      wynik = wynik .. "grosze"
+    if num == 1 then
+      result = result .. polishCentsDeclension[0]
+    elseif num % 10 >= 2 and num % 10 <= 4 and math.floor(num % 100 / 10) ~= 1 then
+      result = result .. " " .. polishCentsDeclension[1]
     else
-      wynik = wynik .. "groszy"
+      result = result .. " " .. polishCentsDeclension[2]
     end
   end
 
-  return wynik
+  return result
+end
+
+function NF.currencySpellout(num)
+  local result = ""
+  local whole = math.floor(num)
+  local cents = math.floor((num * 100) % 100)
+
+  result = parseHundreds(parseThousands(whole))
+  result = parseCurrencyDeclension(result, whole)
+  result = parseCentsDeclension(result, cents)
+
+  return result
+end
+
+function NF.currencyFormat(num)
+  return string.format("%.2f", num) .. " zł"
 end
 
 return NF

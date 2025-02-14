@@ -3,27 +3,32 @@ local numberFormatter = require('src.utils.numberFormatter')
 
 local IF = {}
 
-function IF.createInvoice(invoiceObj) 
+local function calculateGross(net, vat)
+  return net + net * vat / 100
+end
+
+local function calculateVat()
+
+end
+
+
+
+
+
+function IF.createInvoice(invoiceObj)
   local invoice = invoiceObj
 
-  invoice.currencyNet = ''
-  invoice.currencyGross =''
-  invoice.currencyVat = ''
-  vatRate = invoice.vat .. '%'
-  -- invoice.currencySpellout = numberFormatter.currencySpellout(invoice.net)
+  invoice.gross = calculateGross(invoice.net, invoice.vat)
+  invoice.currencyNet = numberFormatter.currencyFormat(invoice.net)
+  invoice.currencyGross = numberFormatter.currencyFormat(invoice.gross)
+  invoice.currencyVat = calculateVat()
+  invoice.vatRate = invoice.vat .. '%'
+  invoice.currencySpellout = numberFormatter.currencySpellout(invoice.net)
   invoice.title = ''
   invoice.paymentDate = ''
 
-  numberFormatter.currencySpellout(10.5)
-  numberFormatter.currencySpellout(152.34)
-  numberFormatter.currencySpellout(100)
-  numberFormatter.currencySpellout(1000)
-  numberFormatter.currencySpellout(10000)
-  numberFormatter.currencySpellout(10204)
 
-  return 
+  return invoice
 end
 
 return IF
-
-

@@ -17,6 +17,11 @@ function TM.prepareFv(inactive)
     for j, invoiceObj in pairs(invoices) do
       if invoiceObj.active or inactive == 'inactive' then
         local invoice = invoiceFactory.createInvoice(invoiceObj)
+
+        local invoiceTemplate = fm.replaceTemplateVars(customerTemplate, invoice, 'invoice')
+
+        print(invoiceTemplate)
+
         -- local invoice = invoiceFactory.createInvoice(invoiceObj)
         -- local invoiceTemplate = fm.replaceTemplateVars(templateWithSeller, invoice, 'invoice')
         end
