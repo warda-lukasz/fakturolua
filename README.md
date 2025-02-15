@@ -1,5 +1,5 @@
 # FAKTUROPLUJKA #
-This time in lua!
+This time in lua (and so much faster)!
 
 ## Prerequisites
 - make
@@ -16,6 +16,11 @@ make deps-check
 ### Install the required packages
 ```bash
 make deps-install
+
+## Copy the parameters file
+```bash
+cp config/parameters.yaml.dist config/parameters.yaml
+```
 ```
 ## Run the program
 ```bash
