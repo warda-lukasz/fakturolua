@@ -3,7 +3,6 @@ local fm = require('src.fileManager')
 local TM = {}
 
 function TM.prepareFv(inactive)
-
   local seller = fm.getSeller()
   local customers = fm.getCustomers()
   local template = fm.getTemplate()
@@ -16,15 +15,16 @@ function TM.prepareFv(inactive)
 
     for j, invoiceObj in pairs(invoices) do
       if invoiceObj.active or inactive == 'inactive' then
-
         local invoice = invoiceFactory.createInvoice(invoiceObj, invoiceIndex, seller)
         invoiceIndex = invoiceIndex + 1
 
-        -- local invoiceTemplate = fm.replaceTemplateVars(customerTemplate, invoice, 'invoice')
+        local invoiceTemplate = fm.replaceTemplateVars(customerTemplate, invoice, 'invoice')
+
+        print(invoiceTemplate)
 
         -- local invoice = invoiceFactory.createInvoice(invoiceObj)
         -- local invoiceTemplate = fm.replaceTemplateVars(templateWithSeller, invoice, 'invoice')
-        end
+      end
     end
   end
 
@@ -32,5 +32,3 @@ function TM.prepareFv(inactive)
 end
 
 return TM
-
-

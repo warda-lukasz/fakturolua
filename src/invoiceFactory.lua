@@ -20,7 +20,7 @@ local function prepareCurrencies(i)
   i.currencySpellout = nf.currencySpellout(i.net)
 end
 
-local function prepareDates(i)
+local function prepareIssueDate(i)
   if i.issueOnTheLastDay then
     i.issueDate = dm.getLastDayOfTheMonth()
   else
@@ -30,16 +30,40 @@ local function prepareDates(i)
       i.issueDate = os.time()
     end
   end
+end
 
+local function prepareSaleDate(i) 
+  if (i.issueOnTheLastDay) then
+    i.saleDate = dm.getLastDayOfTheMonth()
+  else
+    if i.dateToIssud ~= "" then
+      i.saleDate = dm.getSaleTimeFromConfig(i)
+    else
+      i.saleDate = os.time()
+    end
+  end
+end
+
+local function preparePaymentDate(i) 
   i.paymentDate = dm.addDays(i.issueDate, i.daysToPayment)
+end
+
+
+local function prepareDates(i)
+  -- TODO prepare issueDate, prepare SaleDate, prepare PaymentDate
+  --
+  prepareIssueDate(i)
+  prepareSaleDate(i)
+  preparePaymentDate(i)
 
   i.issueDate = os.date('%d.%m.%Y', i.issueDate)
+  i.saleDate = os.date('%d.%m.%Y', i.saleDate)
   i.paymentDate = os.date('%d.%m.%Y', i.paymentDate)
 end
 
 local function prepareTitles(i, fvIndex, seller)
   i.title = fvIndex .. '/' .. os.date('%m/%Y')
-  i.filename = seller.iTitlePrefix .. fvIndex .. '_' .. os.date('%m_%Y')
+  i.filename = seller.invoiceTitlePrefix .. fvIndex .. '_' .. os.date('%m_%Y')
 end
 
 function IF.createInvoice(invoiceObj, index, seller)

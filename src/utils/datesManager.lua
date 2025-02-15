@@ -17,11 +17,19 @@ function DM.addDays(date, days)
   return date + (days * 24 * 60 * 60)
 end
 
-function DM.getIssueTimeFromConfig(invoice)
+function DM.getIssueTimeFromConfig(i)
   return os.time({
-    year = os.date('%Y', invoice.dateToIssue),
-    month = os.date('%m', invoice.dateToIssue),
-    day = os.date('%d', invoice.dateToIssue)
+    year = os.date('%Y', i.dateToIssue),
+    month = os.date('%m', i.dateToIssue),
+    day = os.date('%d', i.dateToIssue)
+  })
+end
+
+function DM.getSaleTimeFromConfig(i)
+  return os.time({
+    year = os.date('%Y', i.dateToSale),
+    month = os.date('%m', i.dateToSale),
+    day = os.date('%d', i.dateToSale)
   })
 end
 
