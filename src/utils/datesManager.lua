@@ -5,6 +5,21 @@ local monthNames = {
   "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
 }
 
+function DM.stringDateToTime(dateStr)
+  if dateStr == "" then return os.time() end
+  local day, month, year = dateStr:match("(%d+).(%d+).(%d+)")
+
+  if not day or not month or not year then
+    error("Invalid date format: " .. dateStr)
+  end
+
+  return os.time({
+    year = tonumber(year),
+    month = tonumber(month),
+    day = tonumber(day)
+  })
+end
+
 function DM.getCurrentMonthName()
   return monthNames[tonumber(os.date('%m'))]
 end
@@ -27,19 +42,11 @@ function DM.addDays(date, days)
 end
 
 function DM.getIssueTimeFromConfig(i)
-  return os.time({
-    year = os.date('%Y', i.dateToIssue),
-    month = os.date('%m', i.dateToIssue),
-    day = os.date('%d', i.dateToIssue)
-  })
+  return DM.stringDateToTime(i.dateToIssue)
 end
 
 function DM.getSaleTimeFromConfig(i)
-  return os.time({
-    year = os.date('%Y', i.dateToSale),
-    month = os.date('%m', i.dateToSale),
-    day = os.date('%d', i.dateToSale)
-  })
+  return DM.stringDateToTime(i.dateToSale)
 end
 
 function DM.prepareIssueDate(i)

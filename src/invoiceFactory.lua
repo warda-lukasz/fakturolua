@@ -16,8 +16,8 @@ local function prepareCurrencies(i)
   i.currencyNet = nf.currencyFormat(i.net)
   i.currencyGross = nf.currencyFormat(i.gross)
   i.currencyVat = nf.currencyFormat(calculateVat(i.net, i.vat))
-  i.vatRate = i.vat .. '%'
-  i.currencySpellout = nf.currencySpellout(i.net)
+  i.vatPercentage = i.vat .. "\\%"
+  i.currencySpellout = nf.currencySpellout(i.gross)
 end
 
 local function prepareDates(i)
