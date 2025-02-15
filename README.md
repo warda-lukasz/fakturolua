@@ -28,8 +28,12 @@ or
 ./makeFV.lua
 ```
 #### Rendering inactive invoices
-If you want to render inactive invoices, you can run the program with the `inactive` argument.
+If you want to render inactive invoices, you can run the program with the `true` or `false` argument.
 To make invoice active, you can change the `active` field in the invoice in `parameters.yaml` file.
 ```bash
-./makeFV.lua inactive
+./makeFV.lua true
+```
+If you want to start rendering from a specific number of invoice, you can run the program with the int in the second argument.
+```bash
+./makeFV.lua false 5
 ```
