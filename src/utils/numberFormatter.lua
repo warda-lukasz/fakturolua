@@ -167,7 +167,14 @@ function NF.currencySpellout(num)
 end
 
 function NF.currencyFormat(num)
-  return string.format("%.2f", num) .. " zł"
+   local formatted = string.format("%.2f", num)
+   -- add space for milions and beyond
+   formatted = string.gsub(formatted, "(%d)(%d%d%d)(%d%d%d)%.", "%1 %2 %3.")
+   -- space for thousands
+   formatted = string.gsub(formatted, "(%d)(%d%d%d)%.", "%1 %2.")
+   -- dot to comma
+   formatted = string.gsub(formatted, "%.", ",")
+   return formatted .. " zł"
 end
 
 return NF
