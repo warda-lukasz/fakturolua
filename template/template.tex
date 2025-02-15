@@ -50,7 +50,7 @@
 
     \ \\ \ \\
 
-    \centerline{\textbf{\LARGE{Faktura VAT nr: <<invoiceNumber>>}}}
+    \centerline{\textbf{\LARGE{Faktura VAT nr: <<invoicetitle>>}}}
 
     \ \\
 
@@ -64,9 +64,9 @@
                 & \textbf{Jm.} & \textbf{Cena netto} & \textbf{Wartość netto}
                 & \textbf{Stawka Vat} & \textbf{Kwota Vat} & \textbf{Wartość Brutto} \\
                 \hline
-                1 & <<product>> & 1 & szt. & <<currencyNet>>
-                & <<currencyNet>> & <<vatRatePercentage>>
-                & <<currencyVat>> & <<currencyGross>> \\
+                1 & <<invoiceproduct>> & 1 & szt. & <<invoicecurrencyNet>>
+                & <<invoicecurrencyNet>> & <<invoicevatRate>>
+                & <<invoicecurrencyVat>> & <<invoicecurrencyGross>> \\
                 \hline
             \end{tabular}
         }\label{tab:table}
@@ -75,14 +75,14 @@
 
     \begin{small}
         \begin{minipage}[t]{.7\textwidth}
-            Razem do zapłaty: <<currencyGross>> \\
+            Razem do zapłaty: <<invoicecurrencyGross>> \\
             \begin{scriptsize}
-                <<currencySpellout>>
+                <<invoicecurrencySpellout>>
             \end{scriptsize}
         \end{minipage}
         \begin{minipage}[t]{\textwidth}
-            Sposób zapłaty: <<payment>> \\
-            Termin zapłaty: <<paymentDate>>
+            Sposób zapłaty: <<invoicepayment>> \\
+            Termin zapłaty: <<invoicepaymentDate>>
         \end{minipage}
     \end{small}
 
@@ -118,7 +118,7 @@
         \ \\
 
         \begin{small}
-            \small{\centerline{{MPK: <<mpkCode>>}}}
+            \small{\centerline{{MPK: <<invoicempkCode>>}}}
         \end{small}
 
 
