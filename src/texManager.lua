@@ -2,6 +2,21 @@ local invoiceFactory = require('src.invoiceFactory')
 local fm = require('src.fileManager')
 local TM = {}
 
+local function renderInvoices()
+  local files = io.popen('find tmp -name "*.tex"')
+
+  if not files then error('No files found') end
+
+  for file in files:lines() do
+    local cmd = string.format('pdflatex -interaction=batchmode -output-directory=tmp %s > /dev/null 2>&1', file)
+    local success = os.execute(cmd)
+
+    if not success then error('Could not render file') end
+  end
+
+  files:close()
+end
+
 function TM.prepareFv(inactive)
   local seller = fm.getSeller()
   local customers = fm.getCustomers()
@@ -20,15 +35,14 @@ function TM.prepareFv(inactive)
 
         local invoiceTemplate = fm.replaceTemplateVars(customerTemplate, invoice, 'invoice')
 
-        print(invoiceTemplate)
-
-        -- local invoice = invoiceFactory.createInvoice(invoiceObj)
-        -- local invoiceTemplate = fm.replaceTemplateVars(templateWithSeller, invoice, 'invoice')
+        fm.saveTexFile(invoiceTemplate, invoice.filename)
       end
     end
   end
 
-  return templateWithSeller
+  renderInvoices()
+  fm.moveFilesToOutputDir()
+  fm.cleanTmpDir()
 end
 
 return TM

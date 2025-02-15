@@ -1,43 +1,57 @@
 local loader = require('src.loader')
+local dm = require('src.utils.datesManager')
 
 local FM = {}
 local parameters = loader.loadYaml('config/parameters.yaml')
 
-function FM.replaceTemplateVars(template, obj, objName) 
+function FM.replaceTemplateVars(template, obj, objName)
   return template:gsub('<<' .. objName .. '(.-)>>', function(key)
     local value = obj[key]
     return tostring(value)
   end)
 end
 
-function FM.getTemplate() 
+function FM.getTemplate()
   local file = io.open('template/template.tex', 'r')
+
+  if not file then error('Template file not found') end
+
   local content = file:read('*all')
   file:close()
   return content
 end
 
-function FM.saveTexFile(content, title) 
-  local file = io.open('output/' .. title .. '.tex', 'w')
+function FM.saveTexFile(content, filename)
+  local file = io.open('tmp/' .. filename .. '.tex', 'w')
+  if not file then error('Could not create file') end
   file:write(content)
   file:close()
 end
 
-function FM.cleanOutputDir() 
-  os.execute('rm -rf output/*')
+function FM.cleanTmpDir()
+  os.execute('rm -rf tmp/*')
 end
 
-function FM.copyFilesToOutputDir() 
-  local targetDir = './todo'
-  os.execute('cp -r output/* ' .. targetDir .. '/')
+function FM.moveFilesToOutputDir()
+  local targetDir = parameters and parameters.outputDir
+
+  if not targetDir then error('Output directory not set') end
+
+  local writable = os.execute('test -e "' .. targetDir .. '"')
+
+  if not writable then error('Output directory not writable') end
+
+  targetDir = targetDir .. '/' .. os.date('%Y') .. '/' .. dm.getCurrentMonthName() .. '/'
+  os.execute('mkdir -p ' .. targetDir)
+  os.execute('cp -r tmp/*.pdf ' .. targetDir .. '/')
 end
 
 function FM.getSeller()
-  return parameters.seller
+  return parameters and parameters.seller
 end
 
 function FM.getCustomers()
-  return parameters.customers
+  return parameters and parameters.customers
 end
 
 return FM

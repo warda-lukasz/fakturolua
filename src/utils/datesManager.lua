@@ -1,5 +1,15 @@
 local DM = {}
 
+local monthNames = {
+    "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
+    "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
+}
+
+function DM.getCurrentMonthName()
+  return monthNames[tonumber(os.date('%m'))]
+
+end
+
 function DM.getLastDayOfTheMonth()
   local month = os.date('%m')
   local year = os.date('%Y')
