@@ -4,12 +4,16 @@ local dm = require('src.utils.datesManager')
 local FM = {}
 
 local parameters = loader.loadYaml('config/parameters.yaml')
-
 if not parameters then error('Parameters file not found') end
 
 function FM.replaceTemplateVars(template, obj, objName)
   return template:gsub('<<' .. objName .. '(.-)>>', function(key)
     local value = obj[key]
+
+    if value == nil then
+      error(string.format("Key '%s' not found in object '%s'", key, objName))
+    end
+
     return tostring(value)
   end)
 end

@@ -1,13 +1,12 @@
 local DM = {}
 
 local monthNames = {
-    "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
-    "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
+  "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
+  "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
 }
 
 function DM.getCurrentMonthName()
   return monthNames[tonumber(os.date('%m'))]
-
 end
 
 function DM.getLastDayOfTheMonth()
@@ -59,7 +58,7 @@ function DM.prepareSaleDate(i)
   if (i.issueOnTheLastDay) then
     i.saleDate = DM.getLastDayOfTheMonth()
   else
-    if i.dateToIssud ~= "" then
+    if i.dateToIssue ~= "" then
       i.saleDate = DM.getSaleTimeFromConfig(i)
     else
       i.saleDate = os.time()
