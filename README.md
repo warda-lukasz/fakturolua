@@ -2,9 +2,9 @@
 This time in lua!
 
 ## Prerequisites
+- make
 - Lua 5.3
 - LuaRocks
-  - inspect
   - lyaml
 - texlive
 - texlive-lang-polish
@@ -13,7 +13,6 @@ This time in lua!
 ```bash
 make deps-check
 ```
-
 ### Install the required packages
 ```bash
 make deps-install
@@ -21,7 +20,6 @@ make deps-install
 ## Run the program
 ```bash
 lua makeFv.lua
-
 ```
 or
 
