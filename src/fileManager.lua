@@ -48,7 +48,9 @@ function FM.moveFilesToOutputDir()
 
   if not writable then error('Output directory not writable') end
 
-  targetDir = targetDir .. '/' .. os.date('%Y') .. '/' .. dm.getCurrentMonthName() .. '/'
+  targetDir = targetDir .. '/' .. os.date('%Y') .. '/'
+      .. os.date('%m') .. '-' .. dm.getCurrentMonthName() .. '/'
+
   os.execute('mkdir -p ' .. targetDir)
   os.execute('cp -r tmp/*.pdf ' .. targetDir .. '/')
 end
