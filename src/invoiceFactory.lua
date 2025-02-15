@@ -20,41 +20,10 @@ local function prepareCurrencies(i)
   i.currencySpellout = nf.currencySpellout(i.net)
 end
 
-local function prepareIssueDate(i)
-  if i.issueOnTheLastDay then
-    i.issueDate = dm.getLastDayOfTheMonth()
-  else
-    if i.dateToIssue ~= "" then
-      i.issueDate = dm.getIssueTimeFromConfig(i)
-    else
-      i.issueDate = os.time()
-    end
-  end
-end
-
-local function prepareSaleDate(i) 
-  if (i.issueOnTheLastDay) then
-    i.saleDate = dm.getLastDayOfTheMonth()
-  else
-    if i.dateToIssud ~= "" then
-      i.saleDate = dm.getSaleTimeFromConfig(i)
-    else
-      i.saleDate = os.time()
-    end
-  end
-end
-
-local function preparePaymentDate(i) 
-  i.paymentDate = dm.addDays(i.issueDate, i.daysToPayment)
-end
-
-
 local function prepareDates(i)
-  -- TODO prepare issueDate, prepare SaleDate, prepare PaymentDate
-  --
-  prepareIssueDate(i)
-  prepareSaleDate(i)
-  preparePaymentDate(i)
+  dm.prepareIssueDate(i)
+  dm.prepareSaleDate(i)
+  dm.preparePaymentDate(i)
 
   i.issueDate = os.date('%d.%m.%Y', i.issueDate)
   i.saleDate = os.date('%d.%m.%Y', i.saleDate)

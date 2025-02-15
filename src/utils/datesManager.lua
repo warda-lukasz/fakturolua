@@ -33,4 +33,32 @@ function DM.getSaleTimeFromConfig(i)
   })
 end
 
+function DM.prepareIssueDate(i)
+  if i.issueOnTheLastDay then
+    i.issueDate = DM.getLastDayOfTheMonth()
+  else
+    if i.dateToIssue ~= "" then
+      i.issueDate = DM.getIssueTimeFromConfig(i)
+    else
+      i.issueDate = os.time()
+    end
+  end
+end
+
+function DM.prepareSaleDate(i)
+  if (i.issueOnTheLastDay) then
+    i.saleDate = DM.getLastDayOfTheMonth()
+  else
+    if i.dateToIssud ~= "" then
+      i.saleDate = DM.getSaleTimeFromConfig(i)
+    else
+      i.saleDate = os.time()
+    end
+  end
+end
+
+function DM.preparePaymentDate(i)
+  i.paymentDate = DM.addDays(i.issueDate, i.daysToPayment)
+end
+
 return DM
