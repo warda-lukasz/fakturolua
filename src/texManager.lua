@@ -10,8 +10,6 @@ local function renderInvoices()
   for file in files:lines() do
     local cmd = string.format('pdflatex -interaction=batchmode -output-directory=tmp %s > /dev/null 2>&1', file)
     local success = os.execute(cmd)
-
-    if not success then error('Could not render file') end
   end
 
   files:close()

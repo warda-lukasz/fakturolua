@@ -44,10 +44,6 @@ function FM.moveFilesToOutputDir()
 
   if not targetDir then error('Output directory not set') end
 
-  local writable = os.execute('test -e "' .. targetDir .. '"')
-
-  if not writable then error('Output directory not writable') end
-
   targetDir = targetDir .. '/' .. os.date('%Y') .. '/'
       .. os.date('%m') .. '-' .. dm.getCurrentMonthName() .. '/'
 
