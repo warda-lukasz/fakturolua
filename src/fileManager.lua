@@ -3,7 +3,7 @@ local dm = require('src.utils.datesManager')
 
 local FM = {}
 
-local parameters = loader.loadYaml('config/parameters.yaml')
+local parameters = loader.loadYaml('config/parameters.yml')
 if not parameters then error('Parameters file not found') end
 
 function FM.replaceTemplateVars(template, obj, objName)
