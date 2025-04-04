@@ -9,7 +9,7 @@ local function renderInvoices()
 
   for file in files:lines() do
     local cmd = string.format('pdflatex -interaction=batchmode -output-directory=tmp %s > /dev/null 2>&1', file)
-    local success = os.execute(cmd)
+    os.execute(cmd)
   end
 
   files:close()
@@ -23,11 +23,11 @@ function TM.prepareFv(inactiveArg, starterIndex)
   local invoiceIndex = starterIndex and starterIndex or 1
   local inactive = inactiveArg == 'true' or inactiveArg and false
 
-  for i, customer in pairs(customers) do
+  for _, customer in pairs(customers) do
     local customerTemplate = fm.replaceTemplateVars(templateWithSeller, customer, 'customer')
     local invoices = customer.invoices
 
-    for j, invoiceObj in pairs(invoices) do
+    for _, invoiceObj in pairs(invoices) do
       if invoiceObj.active or inactive then
         local invoice = invoiceFactory.createInvoice(invoiceObj, invoiceIndex, seller)
         invoiceIndex = invoiceIndex + 1

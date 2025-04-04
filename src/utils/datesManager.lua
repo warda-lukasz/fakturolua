@@ -10,13 +10,19 @@ function DM.stringDateToTime(dateStr)
   local day, month, year = dateStr:match("(%d+).(%d+).(%d+)")
 
   if not day or not month or not year then
-    error("Invalid date format: " .. dateStr)
+    error("Invalid date format")
+  end
+
+  local yearNum, monthNum, dayNum = tonumber(year), tonumber(month), tonumber(day)
+
+  if not (yearNum and monthNum and dayNum) then
+    error("Invalid date format")
   end
 
   return os.time({
-    year = tonumber(year),
-    month = tonumber(month),
-    day = tonumber(day)
+    year = yearNum,
+    month = monthNum,
+    day = dayNum
   })
 end
 
@@ -25,15 +31,27 @@ function DM.getCurrentMonthName()
 end
 
 function DM.getLastDayOfTheMonth()
-  local month = os.date('%m')
-  local year = os.date('%Y')
+  local month = tonumber(os.date('%m'))
+  local year = tonumber(os.date('%Y'))
+
+  if not (month and year) then
+  error("Invalid date format")
+  end
+
   local first_day_next_month = os.time({ year = year, month = month + 1, day = 1 })
-  local lastDay = DM.addDays(first_day_next_month, -1)
+  local lastDay = tonumber(DM.addDays(first_day_next_month, -1))
+
+  local yearNum, monthNum, dayNum = tonumber(os.date('%Y', lastDay)),
+    tonumber(os.date('%m', lastDay)), tonumber(os.date('%d', lastDay))
+
+  if not (yearNum and monthNum and dayNum) then
+    error("Invalid date format")
+  end
 
   return os.time({
-    year = os.date('%Y', lastDay),
-    month = os.date('%m', lastDay),
-    day = os.date('%d', lastDay)
+    year = yearNum,
+    month = monthNum,
+    day = dayNum
   })
 end
 

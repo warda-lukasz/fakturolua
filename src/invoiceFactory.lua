@@ -25,9 +25,17 @@ local function prepareDates(i)
   dm.prepareSaleDate(i)
   dm.preparePaymentDate(i)
 
-  i.issueDate = os.date('%d.%m.%Y', i.issueDate)
-  i.saleDate = os.date('%d.%m.%Y', i.saleDate)
-  i.paymentDate = os.date('%d.%m.%Y', i.paymentDate)
+  local issueDate = tonumber(i.issueDate)
+  local saleDate = tonumber(i.saleDate)
+  local paymentDate = tonumber(i.paymentDate)
+
+  if not (issueDate and saleDate and paymentDate) then
+    error("Cannot prepare dates!")
+  end
+
+  i.issueDate = os.date('%d.%m.%Y', issueDate)
+  i.saleDate = os.date('%d.%m.%Y', saleDate)
+  i.paymentDate = os.date('%d.%m.%Y', paymentDate)
 end
 
 local function prepareTitles(i, fvIndex, seller)
